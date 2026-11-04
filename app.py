@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(
     page_title="Cine Arte",
     page_icon="🎬",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="collapsed",
 )
 
@@ -17,8 +17,11 @@ pag = st.navigation(
         st.Page("pages/jugar.py", title="Jugar", icon="🎮"),
         st.Page("pages/mi_cine.py", title="Mi Cine", icon="🎬"),
     ],
-    position="top",
+    # position="top",
 )
 
 
 pag.run()
+
+st.divider()
+st.caption("© 2026 Cine Arte. Cindy Estrada. Creative Commons BY-SA 4.0")
