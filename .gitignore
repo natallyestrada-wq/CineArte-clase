@@ -1,5 +1,6 @@
 # Archivo de ejemplo que quiero ignorar en Git
 emoticones.txt
+texto.txt
 
 # Archivos de datos crudos
 ## no se incluyen porque son muy pesados y ya se encuentran en 
