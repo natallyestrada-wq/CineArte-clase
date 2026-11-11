@@ -1,5 +1,11 @@
 import streamlit as st
 
+## INICIALIZACIÓN DE VARIABLES DE SESIÓN
+if "ver_mas_tarde" not in st.session_state:
+    st.session_state["ver_mas_tarde"] = [] 
+if "ya_vistas" not in st.session_state:
+    st.session_state["ya_vistas"] = []
+
 st.title("Página de Inicio")
 
 st.write(
@@ -48,3 +54,9 @@ with col3:
 
     if st.button("Ir a Mi Cine"):
         st.switch_page("pages/mi_cine.py")
+
+
+st.subheader("Películas guardadas para ver más tarde:")
+st.write(st.session_state['ver_mas_tarde'])
+st.subheader("Películas marcadas como ya vistas:")
+st.write(st.session_state['ya_vistas'])
