@@ -2,8 +2,11 @@
 
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 
 from src.datos import cargar_pelis
+#from src.figuras import cant_por_genero, cant_por_anhos
+import src.figuras as fig
 
 ## CARGA DE DATOS
 pelis = cargar_pelis()
@@ -121,8 +124,13 @@ else:
 # 'popularity', 'poster_path', 'tagline', 'genres', 'keywords', 'directors', 'writers',
 # 'averageRating', 'numVotes', 'cast']
 
-
-## DETALLES DE UNA PELI SELECCIONADA
-
-
 ## GRÁFICOS
+grafico = fig.cant_por_genero(pelis_filtradas)
+st.plotly_chart(grafico)
+
+grafico = fig.cant_por_anho(pelis_filtradas)
+st.plotly_chart(grafico)
+
+grafico = fig.popularidad_por_calificacion(pelis_filtradas)
+st.plotly_chart(grafico)
+
