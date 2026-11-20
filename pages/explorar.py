@@ -4,7 +4,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-from src.datos import cargar_pelis
+from src.datos import cargar_pelis, filtlar_pelis
 #from src.figuras import cant_por_genero, cant_por_anhos
 import src.figuras as fig
 
@@ -38,24 +38,14 @@ with col2:
 with col3:
     reparto_buscar = st.text_input("👥 Reparto", placeholder="Ej. Leonardo")
 
-
-filtros = {  # filtros necesarios para aplicar al dataframe
-    "title": titulo_buscar,
-    "genres": genero_buscar,
-    "directors": directores_buscar,
-    "cast": reparto_buscar,
-}
-
 pelis_filtradas = pelis.copy()
-
-for columna, termino_busqueda in filtros.items():
-
-    if termino_busqueda:
-        pelis_filtradas = pelis_filtradas[
-            pelis_filtradas[columna].str.contains(
-                termino_busqueda.strip(), case=False, regex=False
-            )
-        ]
+pelis_filtradas = filtlar_pelis(pelis_filtradas, 
+                                titulo = titulo_buscar,
+                                generos = genero_buscar,
+                                directores = directores_buscar,
+                                reparto = reparto_buscar,
+                                
+                                )
 
 ## PRESENTACIÓN DE LA TABLA
 st.divider()
