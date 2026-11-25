@@ -51,11 +51,57 @@ elif valoracion_buscar == "🤷 Sin preferencia":
     rating_min = None
     popularidad_max = None
 
+#----------------
+excluir_mas_18 = st.checkbox("Quiero excluir películas para adultos")
+
+# ---------------
+opciones_experiencia = {         # Opciones de experiencia cinematográfica
+    "💥 Acción y adrenalina": [
+        "Action", "Adventure", "War", "Thriller"
+    ],
+    "🔍 Misterio y secretos": [
+        "Mystery", "Crime", "Thriller"
+    ],
+    "👽 Mundos extraordinarios": [
+        "Science Fiction", "Fantasy", "Adventure", "Animation"
+    ],
+    "😭 Emociones a flor de piel": [
+        "Drama", "Romance", "History", "Music"
+    ],
+    "🗺️ Aventura y exploración": [
+        "Adventure", "Western", "History", "War"
+    ],
+    "😂 Risas y diversión": [
+        "Comedy", "Family", "Animation"
+    ],
+    "👻 Miedo y oscuridad": [
+        "Horror", "Mystery", "Thriller"
+    ],
+    "🤯 Mentes sorprendidas": [
+        "Science Fiction", "Mystery", "Thriller", "Drama"
+    ],
+    "🎬 Historias reales y del mundo": [
+        "Documentary", "History", "War", "Music"
+    ]
+}
 
 
+experiencias_seleccionadas = st.pills(
+    "¿Qué tipo de experiencia buscas?",
+    opciones_experiencia.keys(),
+    selection_mode= "multi",
+    width="stretch"
+)
 
-st.write(duracion_max)
-  
+generos_seleccionados = []
+for experiencia in experiencias_seleccionadas:
+    generos_seleccionados.append(opciones_experiencia[experiencia])
+
+st.code(generos_seleccionados)
+st.code(type(generos_seleccionados))
+
+
+## Aplicado de filtros
 df_filtrado = pelis.copy()
 
 if st.button("Filtrar ahora"):
@@ -63,5 +109,9 @@ if st.button("Filtrar ahora"):
                                 duracion_min= duracion_min, 
                                 duracion_max=duracion_max,
                                 rating_min=rating_min,
-                                popularidad_max=popularidad_max)
+                                popularidad_max=popularidad_max,
+                                mayor_18= excluir_mas_18,
+                                #generos=generos_seleccionados
+                                )
+    st.subheader(f"Total de coincidencias {len(df_filtrado)}")
     st.dataframe(df_filtrado)

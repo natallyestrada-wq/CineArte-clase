@@ -17,25 +17,35 @@ def filtlar_pelis(df,
                   duracion_min = None,
                   duracion_max = None,
                   rating_min = None,
-                  popularidad_max = None
+                  popularidad_max = None,
+                  mayor_18 = False
                   ):
 
     # Filtros por texto
     filtros = {  # filtros necesarios para aplicar al dataframe
         "title": titulo,
-        "genres": generos,
+        #"genres": generos,
         "directors": directores,
         "cast": reparto,
     }
 
     for columna, termino_busqueda in filtros.items():
 
-        if termino_busqueda:
+        if termino_busqueda is not None:
             df = df[
                 df[columna].str.contains(
                     termino_busqueda.strip(), case=False, regex=False
                 )
             ]
+    # Filtro de géneros
+    if generos is not None:
+        for genero in generos:
+            df = df[
+                    df["genres"].str.contains(
+                        genero.strip(), case=False, regex=False
+                    )
+                ]
+
 
     # Filtros por tiempo
     if duracion_min is not None:
@@ -56,6 +66,12 @@ def filtlar_pelis(df,
         df = df[
             df["popularity"] <= popularidad_max
         ]
+
+    if mayor_18:
+        df = df[
+            ~ df["adult"] 
+        ]
+
 
 
     return df

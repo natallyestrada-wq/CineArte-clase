@@ -41,7 +41,7 @@ with col3:
 pelis_filtradas = pelis.copy()
 pelis_filtradas = filtlar_pelis(pelis_filtradas, 
                                 titulo = titulo_buscar,
-                                generos = genero_buscar,
+                                generos = [genero_buscar],
                                 directores = directores_buscar,
                                 reparto = reparto_buscar,
                                 
