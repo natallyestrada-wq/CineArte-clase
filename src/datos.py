@@ -37,14 +37,19 @@ def filtlar_pelis(df,
                     termino_busqueda.strip(), case=False, regex=False
                 )
             ]
-    # Filtro de géneros
-    if generos is not None:
-        for genero in generos:
-            df = df[
-                    df["genres"].str.contains(
-                        genero.strip(), case=False, regex=False
-                    )
-                ]
+    # Filtro de géneros: una película puede coincidir con cualquiera de ellos.
+    generos_busqueda = [
+        genero.strip() for genero in (generos or []) if genero and genero.strip()
+    ]
+    if generos_busqueda:
+        coincide_genero = df["genres"].str.contains(
+            generos_busqueda[0], case=False, regex=False, na=False
+        )
+        for genero in generos_busqueda[1:]:
+            coincide_genero |= df["genres"].str.contains(
+                genero, case=False, regex=False, na=False
+            )
+        df = df[coincide_genero]
 
 
     # Filtros por tiempo

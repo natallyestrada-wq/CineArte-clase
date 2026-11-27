@@ -5,6 +5,8 @@ if "ver_mas_tarde" not in st.session_state:
     st.session_state["ver_mas_tarde"] = [] 
 if "ya_vistas" not in st.session_state:
     st.session_state["ya_vistas"] = []
+if "partidas_jugadas" not in st.session_state:
+    st.session_state["partidas_jugadas"] = 0
 
 st.title("Página de Inicio")
 
@@ -56,7 +58,36 @@ with col3:
         st.switch_page("pages/mi_cine.py")
 
 
-st.subheader("Películas guardadas para ver más tarde:")
-st.write(st.session_state['ver_mas_tarde'])
-st.subheader("Películas marcadas como ya vistas:")
-st.write(st.session_state['ya_vistas'])
+st.divider()
+st.subheader("Estadísticas")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric(
+        "Películas guardadas para ver más tarde",
+        len(st.session_state["ver_mas_tarde"]),
+    )
+
+with col2:
+    st.metric("Películas ya vistas", len(st.session_state["ya_vistas"]))
+
+with col3:
+    st.metric("Partidas jugadas", st.session_state["partidas_jugadas"])
+
+st.divider()
+st.subheader("Sobre mí")
+
+col_foto, col_biografia = st.columns([1, 2])
+
+with col_foto:
+    st.image("assets/cindy_estrada.jpeg", width=250)
+
+with col_biografia:
+    st.markdown("**Docente · Universidad de Antioquia**")
+    st.write("Soy una profesional apasionada por la tecnología, la educación y la ciencia.")
+    st.write(
+        "Me gusta transformar ideas complejas en experiencias de aprendizaje claras y "
+        "significativas. Disfruto aprender constantemente y combinar ciencia, tecnología "
+        "y creatividad para resolver problemas."
+    )

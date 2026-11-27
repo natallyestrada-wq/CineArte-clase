@@ -5,17 +5,18 @@ import pandas as pd
 import plotly.express as px
 
 from src.datos import cargar_pelis, filtlar_pelis
+from src.estado_cine import (
+    guardar_para_ver_mas_tarde,
+    inicializar_estado_cine,
+    marcar_como_vista,
+)
 #from src.figuras import cant_por_genero, cant_por_anhos
 import src.figuras as fig
 
 ## CARGA DE DATOS
 pelis = cargar_pelis()
 
-## INICIALIZACIÓN DE VARIABLES DE SESIÓN
-if "ver_mas_tarde" not in st.session_state:
-    st.session_state["ver_mas_tarde"] = [] 
-if "ya_vistas" not in st.session_state:
-    st.session_state["ya_vistas"] = []
+inicializar_estado_cine()
 
 # INTRODUCCIÓN A LA PÁGINA
 st.title("Página de Explorar")
@@ -94,11 +95,11 @@ if evento["selection"]["rows"]:
         bot1, bot2 = st.columns(2)
         with bot1:
             if st.button("Guardar para ver"):
-                st.session_state['ver_mas_tarde'].append(peli_seleccionada["id"])
+                guardar_para_ver_mas_tarde(peli_seleccionada["id"])
                 st.success(f"✅ Guardada {peli_seleccionada['title']} para ver más tarde.")
         with bot2:
             if st.button("Ya la vi"):
-                st.session_state['ya_vistas'].append(peli_seleccionada["id"])
+                marcar_como_vista(peli_seleccionada["id"])
                 st.success(f"✅ Marcada {peli_seleccionada['title']} como ya vista.")
     st.divider()
     st.subheader("Películas guardadas para ver más tarde:")

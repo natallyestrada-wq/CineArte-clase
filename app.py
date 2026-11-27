@@ -24,4 +24,7 @@ pag = st.navigation(
 pag.run()
 
 st.divider()
-st.caption("© 2026 Cine Arte. Cindy Estrada. Creative Commons BY-SA 4.0")
+st.caption(
+    "© 2026 Cine Arte. Cindy Estrada. "
+    "[Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)"
+)
